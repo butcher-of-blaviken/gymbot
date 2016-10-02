@@ -3,10 +3,10 @@ require 'json'
 require 'uri'
 require 'net/http'
 
-URI = URI.parse "https://graph.facebook.com/v2.6/me/messages"
-http = Net::HTTP.new(URI.host, URI.port)
 
 def reply_to_message_event(event)
+    uri = URI.parse "https://graph.facebook.com/v2.6/me/messages"
+    http = Net::HTTP.new(URI.host, URI.port)
     message = event['message']
     sender_id = event['sender']['id']
     p "Received message #{message}"
@@ -19,7 +19,7 @@ def reply_to_message_event(event)
         method: "POST",
         json: message_data
     }
-    post_request = Net::HTTP::Post.new(URI.request_uri)
+    post_request = Net::HTTP::Post.new(uri.request_uri)
     post_request.set_form_data(request_body)
 
     response = http.request(post_request)
