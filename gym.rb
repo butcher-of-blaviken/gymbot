@@ -1,5 +1,9 @@
 require 'sinatra'
 
 get '/' do
-    "Hello world!"
+    "Gymbot"
+end
+
+get '/api/v1' do
+    "Gymbot API"
 end
