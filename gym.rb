@@ -6,7 +6,7 @@ require 'net/http'
 
 def reply_to_message_event(event)
     uri = URI.parse "https://graph.facebook.com/v2.6/me/messages"
-    http = Net::HTTP.new(URI.host, URI.port)
+    http = Net::HTTP.new(uri.host, uri.port)
     message = event['message']
     sender_id = event['sender']['id']
     p "Received message #{message}"
