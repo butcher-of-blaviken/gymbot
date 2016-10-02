@@ -2,11 +2,15 @@ require 'sinatra'
 require 'json'
 require 'uri'
 require 'net/http'
+require 'openssl'
 
 
 def reply_to_message_event(event)
     uri = URI.parse "https://graph.facebook.com/v2.6/me/messages"
     http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.ssl_version = "SSLv3"
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
     message = event['message']
     sender_id = event['sender']['id']
     p "Received message #{message}"
